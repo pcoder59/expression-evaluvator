@@ -32,6 +32,40 @@
                <div id="sb-name">Expression Evaluvator</div>
                <div id="sb-setting">Settings</div>
             </div>
+            <div id="theme-box">
+               <div id="theme-title">
+                  <h4>Type of Expression</h4>
+               </div>
+               <div id="theme">
+                  <div class="theme" onclick="changeMod(1)">
+                     <h5><a href="#">Infix Evaluvation</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(2)">
+                     <h5><a href="#">Postfix Evaluvation</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(3)">
+                     <h5><a href="#">Prefix Evaluvation</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(4)">
+                     <h5><a href="#">Infix to Postfix</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(5)">
+                     <h5><a href="#">Infix to Prefix</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(6)">
+                     <h5><a href="#">Prefix to Infix</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(7)">
+                     <h5><a href="#">Prefix to Postfix</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(8)">
+                     <h5><a href="#">Postfix to Infix</a></h5>
+                  </div>
+                  <div class="theme" onclick="changeMod(9)">
+                     <h5><a href="#">Postfix to Prefix</a></h5>
+                  </div>
+               </div>
+            </div>
             <div id="decimal-box">
                <div id="precision-title">Decimal precision</div>
                <div id="precision">
@@ -90,7 +124,10 @@
                <div class="noselect" id="clear" onclick="c()">CLEAR</div>
             </div>
             <div class="calculator-gide" id="result-container">
-               <div id="result"></div>
+               <input id="result">
+            </div>
+            <div class="calculator-gide" id="result-container">
+               <input id="result-convert">
             </div>
             <div class="calculator-gide noselect" id="op-container">
                <div class="op" id="plus" onclick="insert('+')">+</div>

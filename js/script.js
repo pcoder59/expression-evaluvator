@@ -60,6 +60,7 @@ var operator = false;  // tracks if an operator has been entered
 var ansFound = false;  // tracks if ans has been calculated
 var accuracy = 2;  // determines the number of decimal places to show
 var ans = 0;  // the result
+var mod = 1;
 
 // automatically scrolls to the rightmost side of the result window
 function autoScroll() {
@@ -145,15 +146,37 @@ function c() {
 
 // evaluates the answer using the string in the result window
 function findAns() {
-    let str = document.getElementById("result").innerHTML + '';
-    str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
-    
-    if (str) {
-        ans = eval(str);
+    if(mod == 1) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        
+        if (str) {
+            ans = eval(str);
+        }
+        
+        document.getElementById("result").value = parseFloat(ans).toFixed(accuracy);
+        autoScroll();
+        
+        ansFound = true;
+        document.getElementById("result-convert").value = "";
+    } else if(mod == 2) {
+        let str = document.getElementById("result").innerHTML + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        
+        if (str) {
+            ans = eval(str);
+        }
+        
+        document.getElementById("result").innerHTML = parseFloat(ans).toFixed(accuracy);
+        autoScroll();
+        
+        ansFound = true;
+        document.getElementById("result-convert").value = "";
+    } else {
+        document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
-    
-    document.getElementById("result").innerHTML = parseFloat(ans).toFixed(accuracy);
-    autoScroll();
-    
-    ansFound = true;
+}
+
+function changeMod(value) {
+    mod = value;
 }

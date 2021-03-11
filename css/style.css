@@ -406,12 +406,24 @@ font-size: 25px;
 text-align: right;
 /* overflow-x: scroll; */
 /* overflow-y: hidden; */
-width: inherit;
+width: 90%;
 padding: 2px 11px;
 height: 39px;
 position: relative;
 background-color: #fff;
 color: black;
+}
+#result-convert {
+    font-size: 25px;
+    text-align: right;
+    /* overflow-x: scroll; */
+    /* overflow-y: hidden; */
+    width: 90%;
+    padding: 2px 11px;
+    height: 39px;
+    position: relative;
+    background-color: #fff;
+    color: black;
 }
 #op-container {
 display: flex;
