@@ -160,18 +160,52 @@ function findAns() {
         ansFound = true;
         document.getElementById("result-convert").value = "";
     } else if(mod == 2) {
-        let str = document.getElementById("result").innerHTML + '';
+        let str = document.getElementById("result").value + '';
         str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
         
         if (str) {
-            ans = eval(str);
+            var stack = [];
+            for(i = 0; i < str.length; i++) {
+                if(str[i] == "+" || str[i] == "-" || str[i] == "*" || str[i] == "/") {
+                    if(stack.length == 0) {
+                        ans = "";
+                        ansReplace = 1;
+                        break;
+                    } else {
+                        var b = stack[stack.length-1];
+                        stack.pop();
+                        var a = stack[stack.length-1];
+                        stack.pop();
+                        if(str[i] == "+") {
+                            stack.push(parseFloat(a)+parseFloat(b));
+                        } else if(str[i] == "-") {
+                            stack.push(parseFloat(a)-parseFloat(b));
+                        } else if(str[i] == "*") {
+                            stack.push(parseFloat(a)*parseFloat(b));
+                        } else if(str[i] == "/") {
+                            stack.push(parseFloat(a)/parseFloat(b));
+                        }
+                    }
+                } else {
+                    stack.push(str[i]);
+                }
+            }
+            if(stack.length != 0 && stack.length == 1) {
+                ans = stack[0];
+            } else if(stack.length > 1) {
+                ans = "";
+                document.getElementById("result-convert").value = "Invalid Expression!!!";
+            }
         }
-        
-        document.getElementById("result").innerHTML = parseFloat(ans).toFixed(accuracy);
+
+        document.getElementById("result").value = parseFloat(ans).toFixed(accuracy);
         autoScroll();
         
         ansFound = true;
-        document.getElementById("result-convert").value = "";
+        if(ansReplace != 1) {
+            document.getElementById("result-convert").value = "";
+        }
     } else {
         document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
