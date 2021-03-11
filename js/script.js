@@ -141,7 +141,8 @@ function c() {
     operator = false;
     ansFound = false;
     ans = 0;
-    document.getElementById("result").innerHTML = "";
+    document.getElementById("result").value = "";
+    document.getElementById("result-convert").value = "";
 }
 
 // evaluates the answer using the string in the result window
@@ -154,7 +155,7 @@ function findAns() {
             ans = eval(str);
         }
         
-        document.getElementById("result").value = parseFloat(ans).toFixed(accuracy);
+        document.getElementById("result-convert").value = parseFloat(ans).toFixed(accuracy);
         autoScroll();
         
         ansFound = true;
@@ -195,17 +196,68 @@ function findAns() {
                 ans = stack[0];
             } else if(stack.length > 1) {
                 ans = "";
-                document.getElementById("result-convert").value = "Invalid Expression!!!";
+                document.getElementById("result").value = "Invalid Expression!!!";
             }
         }
 
-        document.getElementById("result").value = parseFloat(ans).toFixed(accuracy);
+        document.getElementById("result-convert").value = parseFloat(ans).toFixed(accuracy);
         autoScroll();
         
         ansFound = true;
         if(ansReplace != 1) {
-            document.getElementById("result-convert").value = "";
+            document.getElementById("result").value = "";
         }
+    } else if(mod == 4) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
+        var ans = "";
+        
+        if (str) {
+            var stack = [];
+            for(i = 0; i < str.length; i++) {
+                if(str[i] == "(") {
+                      stack.push("(");  
+                } else if(str[i] == ")") {
+                    var j = stack.length;
+                    while(stack[j-1] != "(") {
+                        ans += stack[j-1];
+                        stack.pop();
+                        j--;
+                    }
+                    stack.pop();
+                } else if(str[i] == "+" || str[i] == "-" || str[i] == "*" || str[i] == "/") {
+                    if(str[i] == "+" || str[i] == "-") {
+                        if(stack[stack.length-1] == "*" || stack[stack.length-1] == "/") {
+                            ans += strstack[stack.length-1];
+                            stack.pop();
+                            stack.push(str[i]);
+                        } else {
+                            stack.push(str[i]);
+                        }
+                    } else {
+                        if(stack[stack.length-1] == "*" || stack[stack.length-1] == "/") {
+                            ans += stack[stack.length-1];
+                            stack.pop();
+                            stack.push(str[i]);
+                        } else {
+                            stack.push(str[i]);
+                        }
+                    }
+                } else {
+                    ans += str[i];
+                }
+            }
+            if(stack.length > 1) {
+                ans = "";
+                document.getElementById("result").value = "Invalid Expression!!!";
+            }
+        }
+
+        document.getElementById("result-convert").value = ans;
+        autoScroll();
+        
+        ansFound = true;
     } else {
         document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
