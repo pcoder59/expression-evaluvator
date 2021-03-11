@@ -96,7 +96,7 @@ function insert(value) {
             document.getElementById("result").innerHTML += value;
         }
     // allow only one operator to be on the result window for every two numbers
-    } else if (value == '+' || value == '−' || value == '*' || value == '/') {
+    } /*else if (value == '+' || value == '−' || value == '*' || value == '/') {
         if (operator || document.getElementById("result").innerHTML== '') {
             return;
         } else {
@@ -104,7 +104,7 @@ function insert(value) {
             document.getElementById("result").innerHTML += value;
             dec = false;
         }
-    } else {
+    }*/ else {
         document.getElementById("result").innerHTML += value;
     }
     
