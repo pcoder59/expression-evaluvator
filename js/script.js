@@ -394,7 +394,7 @@ function findAns() {
                         ansReplace = 1;
                         break;
                     } else {
-                        stringConcat = stack[stack.length-1] + string[i] + stack[stack.length-2];
+                        stringConcat = "(" + stack[stack.length-1] + string[i] + stack[stack.length-2] + ")";
                         stack.pop();
                         stack.pop();
                         stack.push(stringConcat);
