@@ -79,7 +79,7 @@ function insert(value) {
         // only allow operators
         if (value == '+' || value == '−' || value == '*' || value == '/') {
             operator = true;
-            document.getElementById("result").innerHTML += value;
+            document.getElementById("result").value += value;
             autoScroll();
             dec = false;
             ansFound = false;
@@ -90,11 +90,11 @@ function insert(value) {
     }
     // allow only one decimal point per number
     if (value == '.') {
-        if (dec || document.getElementById("result").innerHTML== '') {
+        if (dec || document.getElementById("result").value== '') {
             return;
         } else {
             dec = true; 
-            document.getElementById("result").innerHTML += value;
+            document.getElementById("result").value += value;
         }
     // allow only one operator to be on the result window for every two numbers
     } /*else if (value == '+' || value == '−' || value == '*' || value == '/') {
@@ -106,7 +106,7 @@ function insert(value) {
             dec = false;
         }
     }*/ else {
-        document.getElementById("result").innerHTML += value;
+        document.getElementById("result").value += value;
     }
     
     autoScroll();
@@ -114,7 +114,7 @@ function insert(value) {
 
 // removes the last character
 function backspace() {
-    let string = document.getElementById("result").innerHTML + '';
+    let string = document.getElementById("result").value + '';
     let lastChar = string.substr(string.length - 1);
     
     if (string) {
@@ -126,10 +126,10 @@ function backspace() {
             operator = false;
         }
         
-        document.getElementById("result").innerHTML = string.substr(0, string.length - 1);
+        document.getElementById("result").value = string.substr(0, string.length - 1);
         
         // reset the calculator if backspace clears the result window
-        if (document.getElementById("result").innerHTML == "") {
+        if (document.getElementById("result").value == "") {
             c();
         }
     }
@@ -159,7 +159,7 @@ function findAns() {
         autoScroll();
         
         ansFound = true;
-        document.getElementById("result-convert").value = "";
+        document.getElementById("result").value = "";
     } else if(mod == 2) {
         let str = document.getElementById("result").value + '';
         str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
@@ -305,6 +305,77 @@ function findAns() {
         if(ansReplace != 1) {
             document.getElementById("result").value = "";
         }
+    } else if(mod == 5) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
+        var ans = "";
+        var string = "";
+
+        for(i = str.length-1; i >= 0; i--) {
+            console.log(str[i]);
+            if(str[i] == "(") {
+                string += ")";
+            } else if(str[i] == ")") {
+                string += "(";
+            } else {
+                string += str[i];
+            }
+        }
+
+        console.log(string);
+        
+        if (string) {
+            var stack = [];
+            for(i = 0; i < string.length; i++) {
+                if(string[i] == "(") {
+                      stack.push("(");  
+                } else if(string[i] == ")") {
+                    var j = stack.length;
+                    while(stack[j-1] != "(") {
+                        ans += stack[j-1];
+                        stack.pop();
+                        j--;
+                    }
+                    stack.pop();
+                } else if(string[i] == "+" || string[i] == "-" || string[i] == "*" || string[i] == "/") {
+                    if(string[i] == "+" || string[i] == "-") {
+                        if(stack[stack.length-1] == "*" || stack[stack.length-1] == "/") {
+                            ans += stringstack[stack.length-1];
+                            stack.pop();
+                            stack.push(string[i]);
+                        } else {
+                            stack.push(string[i]);
+                        }
+                    } else {
+                        if(stack[stack.length-1] == "*" || stack[stack.length-1] == "/") {
+                            ans += stack[stack.length-1];
+                            stack.pop();
+                            stack.push(string[i]);
+                        } else {
+                            stack.push(string[i]);
+                        }
+                    }
+                } else {
+                    ans += string[i];
+                }
+            }
+            if(stack.length > 1) {
+                ans = "";
+                document.getElementById("result").value = "Invalid Expression!!!";
+            }
+        }
+
+        var prefixAns = "";
+
+        for(i = ans.length-1; i >= 0; i--) {
+            prefixAns += ans[i];
+        }
+
+        document.getElementById("result-convert").value = prefixAns;
+        autoScroll();
+        
+        ansFound = true;
     } else {
         document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
