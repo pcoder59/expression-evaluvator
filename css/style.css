@@ -506,8 +506,8 @@ cursor: pointer;
 letter-spacing: 2px;
 background: #000;
 border-radius: 5px;
-padding: 7px 8px;
-font-weight: 600;
+padding: 4px 8px;
+font-weight: 500;
 transition: 0.5s all;
 -webkit-transition: 0.5s all;
 -moz-transition: 0.5s all;
@@ -521,12 +521,12 @@ background: #797575;
 flex-grow: 1;
 }
 #sb-name {
-font-size: 20px;
-margin-bottom: 15px;
+font-size: 15px;
+margin-bottom: 10px;
 color: #000;
 }
 #sb-setting {
-font-size: 39px;
+font-size: 34px;
 color: #000000;
 font-weight: bolder;
 }
@@ -552,16 +552,18 @@ text-align: center;
 border-radius: 25px;
 }
 #theme-box {
-flex-grow: 15;
+flex-grow: 10;
 }
 #theme-title h4 {
 font-size: 25px;
 font-weight: bold;
-padding-bottom: 10px;
+padding-bottom: 5px;
 color: #3F51B5;
 }
-.theme{margin-bottom:10px;
-display:block;}
+.theme {
+    margin-bottom:5px;
+    display:block;
+}
 .theme h5 a{
 font-size: 15px;
 padding-left: 20px;
