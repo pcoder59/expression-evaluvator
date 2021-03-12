@@ -258,6 +258,53 @@ function findAns() {
         autoScroll();
         
         ansFound = true;
+    } else if(mod == 3) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
+        
+        if (str) {
+            var stack = [];
+            for(i = str.length-1; i >= 0; i--) {
+                if(str[i] == "+" || str[i] == "-" || str[i] == "*" || str[i] == "/") {
+                    if(stack.length == 0) {
+                        ans = "";
+                        ansReplace = 1;
+                        break;
+                    } else {
+                        var b = stack[stack.length-1];
+                        stack.pop();
+                        var a = stack[stack.length-1];
+                        stack.pop();
+                        if(str[i] == "+") {
+                            stack.push(parseFloat(a)+parseFloat(b));
+                        } else if(str[i] == "-") {
+                            stack.push(parseFloat(a)-parseFloat(b));
+                        } else if(str[i] == "*") {
+                            stack.push(parseFloat(a)*parseFloat(b));
+                        } else if(str[i] == "/") {
+                            stack.push(parseFloat(a)/parseFloat(b));
+                        }
+                    }
+                } else {
+                    stack.push(str[i]);
+                }
+            }
+            if(stack.length != 0 && stack.length == 1) {
+                ans = stack[0];
+            } else if(stack.length > 1) {
+                ans = "";
+                document.getElementById("result").value = "Invalid Expression!!!";
+            }
+        }
+
+        document.getElementById("result-convert").value = parseFloat(ans).toFixed(accuracy);
+        autoScroll();
+        
+        ansFound = true;
+        if(ansReplace != 1) {
+            document.getElementById("result").value = "";
+        }
     } else {
         document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
