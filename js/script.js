@@ -457,6 +457,44 @@ function findAns() {
         autoScroll();
         
         ansFound = true;
+    } else if(mod == 8) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
+        var ans = "";
+        var string = str;
+        
+        if (string) {
+            var stack = [];
+            var stringConcat = "";
+            for(i = 0; i < string.length; i++) {
+                if(string[i] == "+" || string[i] == "-" || string[i] == "*" || string[i] == "/") {
+                    if(stack.length < 2) {
+                        ans = "";
+                        ansReplace = 1;
+                        break;
+                    } else {
+                        stringConcat = "(" + stack[stack.length-1] + string[i] + stack[stack.length-2] + ")";
+                        stack.pop();
+                        stack.pop();
+                        stack.push(stringConcat);
+                    }
+                } else {
+                    stack.push(string[i]);
+                }
+            }
+            if(stack.length != 1) {
+                ans = "";
+                document.getElementById("result").value = "Invalid Expression!!!";
+            } else {
+                ans = stack[0];
+            }
+        }
+
+        document.getElementById("result-convert").value = ans;
+        autoScroll();
+        
+        ansFound = true;
     } else {
         document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
