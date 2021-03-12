@@ -415,6 +415,48 @@ function findAns() {
         autoScroll();
         
         ansFound = true;
+    } else if(mod == 7) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
+        var ans = "";
+        var string = "";
+
+        for(i = str.length-1; i >= 0; i--) {
+            string += str[i];
+        }
+        
+        if (string) {
+            var stack = [];
+            var stringConcat = "";
+            for(i = 0; i < string.length; i++) {
+                if(string[i] == "+" || string[i] == "-" || string[i] == "*" || string[i] == "/") {
+                    if(stack.length < 2) {
+                        ans = "";
+                        ansReplace = 1;
+                        break;
+                    } else {
+                        stringConcat = stack[stack.length-1] + stack[stack.length-2] + string[i];
+                        stack.pop();
+                        stack.pop();
+                        stack.push(stringConcat);
+                    }
+                } else {
+                    stack.push(string[i]);
+                }
+            }
+            if(stack.length != 1) {
+                ans = "";
+                document.getElementById("result").value = "Invalid Expression!!!";
+            } else {
+                ans = stack[0];
+            }
+        }
+
+        document.getElementById("result-convert").value = ans;
+        autoScroll();
+        
+        ansFound = true;
     } else {
         document.getElementById("result-convert").value = "Invalid Expression!!!";
     }
