@@ -313,7 +313,6 @@ function findAns() {
         var string = "";
 
         for(i = str.length-1; i >= 0; i--) {
-            console.log(str[i]);
             if(str[i] == "(") {
                 string += ")";
             } else if(str[i] == ")") {
@@ -322,8 +321,6 @@ function findAns() {
                 string += str[i];
             }
         }
-
-        console.log(string);
         
         if (string) {
             var stack = [];
@@ -373,6 +370,48 @@ function findAns() {
         }
 
         document.getElementById("result-convert").value = prefixAns;
+        autoScroll();
+        
+        ansFound = true;
+    } else if(mod == 6) {
+        let str = document.getElementById("result").value + '';
+        str = str.replace('−', '-'); // change MINUS SIGN “−” U+2212 with HYPHEN-MINUS, “-”, U+002D 
+        var ansReplace = 0;
+        var ans = "";
+        var string = "";
+
+        for(i = str.length-1; i >= 0; i--) {
+            string += str[i];
+        }
+        
+        if (string) {
+            var stack = [];
+            var stringConcat = "";
+            for(i = 0; i < string.length; i++) {
+                if(string[i] == "+" || string[i] == "-" || string[i] == "*" || string[i] == "/") {
+                    if(stack.length < 2) {
+                        ans = "";
+                        ansReplace = 1;
+                        break;
+                    } else {
+                        stringConcat = stack[stack.length-1] + string[i] + stack[stack.length-2];
+                        stack.pop();
+                        stack.pop();
+                        stack.push(stringConcat);
+                    }
+                } else {
+                    stack.push(string[i]);
+                }
+            }
+            if(stack.length != 1) {
+                ans = "";
+                document.getElementById("result").value = "Invalid Expression!!!";
+            } else {
+                ans = stack[0];
+            }
+        }
+
+        document.getElementById("result-convert").value = ans;
         autoScroll();
         
         ansFound = true;
