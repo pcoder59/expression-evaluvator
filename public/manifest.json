@@ -1,0 +1,17 @@
+{
+    "name": "Expression Evaluvator",
+    "short_name": "Freecalc",
+    "theme_color": "#ffffff",
+    "background_color": "#03A9F4",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "https://freecalculator-d6293.web.app/",
+    "description": "Free Expression Evaluvator Calculator and Expression Converter",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "https://freecalculator-d6293.web.app/images/calculator1600.png",
+            "sizes": "1024x1024"
+        }
+    ]
+}
