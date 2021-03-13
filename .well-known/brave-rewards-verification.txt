@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: freecalculator-d6293.web.app
+Token: 58bedbe8de7fb660747885a0b8a8e8a54d0135510a4b18fa172181bc276c3206
