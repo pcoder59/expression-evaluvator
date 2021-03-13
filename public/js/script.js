@@ -540,4 +540,25 @@ function findAns() {
 
 function changeMod(value) {
     mod = value;
+    if(value == 1) {
+        document.getElementById("selected-mode").innerHTML = "Infix Expression Evaluvation";
+    } else if(value == 2) {
+        document.getElementById("selected-mode").innerHTML = "Postfix Expression Evaluvation";
+    } else if(value == 3) {
+        document.getElementById("selected-mode").innerHTML = "Prefix Expression Evaluvation";
+    } else if(value == 4) {
+        document.getElementById("selected-mode").innerHTML = "Infix to Postfix";
+    } else if(value == 5) {
+        document.getElementById("selected-mode").innerHTML = "Infix to Prefix";
+    } else if(value == 6) {
+        document.getElementById("selected-mode").innerHTML = "Prefix to Infix";
+    } else if(value == 7) {
+        document.getElementById("selected-mode").innerHTML = "Prefix to Postfix";
+    } else if(value == 8) {
+        document.getElementById("selected-mode").innerHTML = "Postfix to Infix";
+    } else if(value == 9) {
+        document.getElementById("selected-mode").innerHTML = "Postfix to Prefix";
+    } else {
+        document.getElementById("selected-mode").innerHTML = "Unknown Mode!!!";
+    }
 }
